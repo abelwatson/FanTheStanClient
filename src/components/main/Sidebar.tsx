@@ -9,8 +9,8 @@ import Reviews from '../centerSection/Reviews';
 import Favorites from '../centerSection/Favorites';
 
 type SidebarProps = {
-    currentToken: string,
-    clickLogout: () => void
+    // token: string,
+    // clickLogout: () => void
 }
 
 
@@ -22,10 +22,12 @@ export default class Sidebar extends React.Component<SidebarProps, {}> {
                 <div>
                     <ul>
                         <li><Link to="/Main">Home</Link></li>
-                        <li><Link to="/MyFavorites">My Quotes</Link></li>
+                        <li><Link to="/MyFavorites">My Favorites</Link></li>
                         <li><Link to="/MyReviews">My Reviews</Link></li>
                     </ul>
-                    <button onClick={this.props.clickLogout}>Logout</button>
+                    <button 
+                    // onClick={this.props.clickLogout}
+                    >Logout</button>
                 </div>
                 <div className='sidebar-route'>
                     <Switch>

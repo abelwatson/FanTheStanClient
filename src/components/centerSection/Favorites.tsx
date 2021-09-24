@@ -1,13 +1,11 @@
 import React from 'react';
 
-export class Favorites extends React.Component {
+export default class Favorites extends React.Component {
     render() {
         return (
             <div>
-                Main Page for all the heros or villains
+                My Favorite Heros
             </div>
         )
     }
 }
-
-export default Favorites;

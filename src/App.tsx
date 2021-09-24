@@ -6,7 +6,7 @@ import Main from './components/centerSection/'
 import { Token } from './types'
 
 type AppProps = {
-  clearToken: () => void
+  // clearToken: () => void
 }
 type AppState = {
   token: Token
@@ -51,7 +51,10 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <div className='App'>
         {this.state.token === localStorage.getItem('token') ? 
-        <Main token={this.state.token} clearToken={this.clearToken} /> : 
+        <Main 
+        // token={this.state.token} 
+        // clearToken={this.clearToken} 
+        /> : 
         <UserAuth updateToken={this.updateToken} />}
       </div>
     )

@@ -1,26 +1,64 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import UserAuth from './components/auth'
+import Main from './components/centerSection/'
+import { Token } from './types'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type AppProps = {
+  // clearToken: () => void
+}
+type AppState = {
+  token: Token
 }
 
-export default App;
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props)
+    this.state = {
+      token: '',
+    }
+  }
+
+  componentDidMount(): void {
+    if (localStorage.getItem('token')) {
+      this.setState({
+        token: localStorage.getItem('token')!,
+      })
+    }
+  }
+
+  updateToken = (newToken: Token): void => {
+    localStorage.setItem('token', newToken)
+    this.setState({ token: newToken })
+  }
+
+  clearToken = (): void => {
+    localStorage.clear()
+    this.setState({ token: '' })
+    window.location.href = "/"
+  }
+
+  protectedViews = (): JSX.Element => {
+    return this.state.token === localStorage.getItem('token') ?
+      <Main 
+      // token={this.state.token} 
+      /> :
+      <UserAuth updateToken={this.updateToken} />
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        {this.state.token === localStorage.getItem('token') ? 
+        <Main 
+        // token={this.state.token} 
+        // clearToken={this.clearToken} 
+        /> : 
+        <UserAuth updateToken={this.updateToken} />}
+      </div>
+    )
+  }
+}
+
+export default App

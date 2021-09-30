@@ -4,6 +4,7 @@ import {UserState} from '../../types'
 
 type UserProps = {
     updateToken(token: string): void,
+    updateRole(role: string): void,
 }
 
 
@@ -42,7 +43,9 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
 
             const json = await res.json();
             const token = json.sessionToken;
+            const role = "" + json.user.role
             this.props.updateToken(token)
+            this.props.updateRole(role)
 
             if (json.errors) {
                 let errMsg = json.errors[0].message;
@@ -55,7 +58,8 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
     }
 
     handleLogin = async () => {
-        const apiURL = 'http://localhost:3000/user/login';
+        const adminURL = 'http://localhost:3000/admin/login';
+        const basicURL = 'http://localhost:3000/user/login';
         const reqBody = {
             user: {
                 email: this.state.email,
@@ -64,7 +68,7 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
         }
 
         try {
-            const res = await fetch(apiURL, {
+            const res = await fetch(adminURL, {
                 method: "POST",
                 body: JSON.stringify(reqBody),
                 headers: {
@@ -74,7 +78,9 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
 
             const json = await res.json();
             const token = json.sessionToken
+            const role = "" + json.user.role
             this.props.updateToken(token);
+            this.props.updateRole(role)
 
             if (json.errors) {
                 let errMsg = json.errors[0].message
@@ -82,8 +88,30 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
                 throw new Error(json.errors[0].message)
             }
         } catch (err) {
-            console.log(err)
-        }
+            console.log('Not Admin, Trying User Database') }
+        
+        try {
+            const res = await fetch(basicURL, {
+                method: "POST",
+                body: JSON.stringify(reqBody),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            })
+
+            const json = await res.json();
+            const token = json.sessionToken
+            const role = "" + json.user.role
+            this.props.updateToken(token);
+            this.props.updateRole(role)
+
+            if (json.errors) {
+                let errMsg = json.errors[0].message
+                this.setState({ errorText: errMsg.charAt(0).toUpperCase() + errMsg.slice(1) + '.' })
+                throw new Error(json.errors[0].message)
+            }
+        } catch (err) {
+            console.log(err) }
     }
 
     render() {

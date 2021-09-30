@@ -1,4 +1,5 @@
 import React from 'react';
+import '../centerSection/Center.css'
 
 export class Footer extends React.Component {
     render() {

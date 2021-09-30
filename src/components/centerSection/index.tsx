@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import './Center.css'
+import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from '../main/Footer';
 import Sidebar from '../main/Sidebar';
-import Landing from './Landing';
 import Header from '../main/Header'
-import Favorites from './Favorites';
-import Reviews from './Reviews';
 
 type MainProps = {
-    // token: string | null
-    // clearToken: () => void
+    sessionToken: string | null,
 }
 
-type MainState = {
 
-}
-
-class Main extends Component<MainProps, MainState>{
+class Main extends Component<MainProps, {}>{
     constructor(props: MainProps) {
         super(props)
         this.state = {
-
+            sessionToken: '',
         }
+        this.clearToken = this.clearToken.bind(this)
+    }
+
+    clearToken = () => {
+        localStorage.clear();
+        this.setState({ sessionToken: ('') });
+        window.location.href = "/"
     }
 
     render() {
@@ -29,14 +30,8 @@ class Main extends Component<MainProps, MainState>{
             <div>
                 <Router>
                     <Header />
-                    <Sidebar />
-                    <Switch>
-                        <Landing />
-                        <Favorites />
-                        <Reviews />
-                    </Switch>
+                    <Sidebar clickLogout={this.clearToken} />
                     <Footer />
-
                 </Router>
 
             </div>

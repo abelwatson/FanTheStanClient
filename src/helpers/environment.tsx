@@ -6,6 +6,6 @@ switch (window.location.hostname) {
         break;
     case "fanthestan.herokuapp.com":
         apiURL = "https://fanthestanserver.herokuapp.com"
-}
+};
 
 export default apiURL;

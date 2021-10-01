@@ -1,6 +1,7 @@
 import React from 'react';
 import './Auth.css';
 import {UserState} from '../../types'
+import apiURL from '../../helpers/environment'
 
 type UserProps = {
     updateToken(token: string): void,
@@ -22,7 +23,6 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
     }
 
     handleRegister = async () => {
-        const apiURL = 'http://localhost:3000/user/register';
         const reqBody = {
             user: {
                 email: this.state.email,
@@ -33,7 +33,7 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
 
         try {
             // console.log(reqBody)
-            const res = await fetch(apiURL, {
+            const res = await fetch(`${apiURL}/user/register`, {
                 method: "POST",
                 body: JSON.stringify(reqBody),
                 headers: {
@@ -58,8 +58,8 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
     }
 
     handleLogin = async () => {
-        const adminURL = 'http://localhost:3000/admin/login';
-        const basicURL = 'http://localhost:3000/user/login';
+        const adminURL = `${apiURL}/admin/login`;
+        const basicURL = `${apiURL}/user/login`;
         const reqBody = {
             user: {
                 email: this.state.email,

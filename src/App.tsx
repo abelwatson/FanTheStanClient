@@ -4,23 +4,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import UserAuth from './components/auth'
 import Main from './components/centerSection/'
 
-type AppProps = {
-
-}
-
 type AppState = {
-  sessionToken: string | null
-  role: string | null
+  sessionToken: string | null,
+  role: string | null,
+  apiErr: string,
 }
 
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
+class App extends React.Component<{}, AppState> {
+  constructor(props: any) {
     super(props)
     this.state = {
-      sessionToken: "",
-      role: ""
+      sessionToken: '',
+      role: "",
+      apiErr: ', our apologies. Please try again later. If this is persistent, please submit an issue on Github.'
     }
-    this.updateToken = this.updateToken.bind(this)
   }
 
   componentDidMount() {
@@ -43,9 +40,9 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   protectedViews() {
-    return (this.state.sessionToken === localStorage.getItem("token") ? 
-    <Main sessionToken={this.state.sessionToken} /> :
-    <UserAuth updateToken={this.updateToken} updateRole={this.updateRole}/>)
+    return (this.state.sessionToken === localStorage.getItem("token") ?
+      <Main apiErr={this.state.apiErr} sessionToken={this.state.sessionToken} /> :
+      <UserAuth updateToken={this.updateToken} updateRole={this.updateRole} />)
   }
 
   render() {

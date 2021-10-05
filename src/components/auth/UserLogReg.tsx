@@ -138,8 +138,8 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
                                         <input type='password' id='password' name='password' title='Password must be between 8 and 16 characters, and contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.' required pattern='^(?=.{5,10})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^+=]).*$' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { this.setState({ password: e.target.value }) }} />
                                     </div>
                                 </div>
-                                <button type='submit'>{this.state.register ? 'Click to Register' : 'Click to Login'}</button>
-                                <button type="button" onClick={() => this.setState({ register: !this.state.register })}>{this.state.register ? 'Need to Login?' : 'New Here?'}</button>
+                                <button className="LoginButton" type='submit'>{this.state.register ? 'Click to Register' : 'Click to Login'}</button>
+                                <button className="LoginButton" type="button" onClick={() => this.setState({ register: !this.state.register })}>{this.state.register ? 'Need to Login?' : 'New Here?'}</button>
                             </form> :
                             <form onSubmit={(e) => {
                                 e.preventDefault()
@@ -159,8 +159,8 @@ export class UserLogReg extends React.Component<UserProps, UserState> {
                                         <input type='password' id='password' name='password' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { this.setState({ password: e.target.value }) }} title='Please enter your password.' required />
                                     </div>
                                 </div>
-                                <button type='submit'>{this.state.register ? 'Click to Register' : 'Click to Login'}</button>
-                                <button type="button" onClick={() => this.setState({ register: !this.state.register })}>{this.state.register ? 'Need to Login?' : 'New Here?'}</button>
+                                <button className="LoginButton" type='submit'>{this.state.register ? 'Click to Register' : 'Click to Login'}</button>
+                                <button className="LoginButton" type="button" onClick={() => this.setState({ register: !this.state.register })}>{this.state.register ? 'Need to Login?' : 'New Here?'}</button>
                             </form>
                         }
                     </div>

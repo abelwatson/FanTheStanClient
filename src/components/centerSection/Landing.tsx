@@ -2,7 +2,7 @@ import React from 'react';
 // import env from "react-dotenv";
 
 type MainProps = {
-    // clearToken: () => void
+
 }
 
 type MainState = {
@@ -40,8 +40,8 @@ export class Landing extends React.Component<MainProps, MainState> {
     render() {
         return (
             <div>
-                Main Page for all the heros or villains
-                <button onClick={this.displayCharacters}>Show Character in Console</button>
+                Main Page for all the heros
+                {/* <button onClick={this.displayCharacters}>Show Character in Console</button> */}
             </div>
         )
     }

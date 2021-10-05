@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import './Center.css'
 import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from '../main/Footer';
 import Sidebar from '../main/Sidebar';
 import Header from '../main/Header'
+// import UserAdmin from '../auth'
 
 type MainProps = {
-    sessionToken: string | null,
+    sessionToken: string | null
+    apiErr: string
+    // role: string | null
 }
 
 
@@ -15,6 +17,7 @@ class Main extends Component<MainProps, {}>{
         super(props)
         this.state = {
             sessionToken: '',
+            // role: '',
         }
         this.clearToken = this.clearToken.bind(this)
     }
@@ -30,12 +33,10 @@ class Main extends Component<MainProps, {}>{
             <div>
                 <Router>
                     <Header />
-                    <Sidebar clickLogout={this.clearToken} />
+                    <Sidebar clickLogout={this.clearToken} sessionToken={this.props.sessionToken} apiErr={this.props.apiErr} />
                     <Footer />
                 </Router>
-
             </div>
-
         )
     }
 }

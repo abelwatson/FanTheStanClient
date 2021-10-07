@@ -37,7 +37,8 @@ export default class ViewFavorites extends React.Component<FavoritesProps, Favor
                 }
             })
             const myJson = await res.json();
-            this.setState({ myFavorites: myJson })
+            const myFavs = await myJson.userFavorite
+            this.setState({ myFavorites: myFavs })
             console.log(this.state.myFavorites)
         } catch (err) {
             alert(`${this.props.apiErr}`)
@@ -45,15 +46,15 @@ export default class ViewFavorites extends React.Component<FavoritesProps, Favor
         }
     }
 
-    componentDidMount() {
+    componentDidMount = (): void => {
         this.viewMyFavorites();
     }
 
-    deleteFavorite = async (journal: any) => {
+    deleteFavorite = async (favorites: any) => {
         const confirm = prompt("Remove Hero?", "Yes")
         if (confirm) {
             try {
-                const removeHero = await fetch(`${apiURL}/favorites/delete/id`, {
+                const removeHero = await fetch(`${apiURL}/favorites/delete/${favorites.id}`, {
                     method: "DELETE",
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -70,12 +71,11 @@ export default class ViewFavorites extends React.Component<FavoritesProps, Favor
     }
 
 
-    favoritesMapper = () => {
-        return this.state.myFavorites.map((favorites: Favorites, index) => {
+    favoritesMapper = (): JSX.Element[] => {
+        return this.state.myFavorites.map((favorites: Favorites) => {
             return (
                 <tbody>
-                    <tr key={index}>
-                        <th scope='row'>{favorites.id}</th>
+                    <tr key={favorites.id}>
                         <td>{favorites.heroVillain}</td>
                         <td><button onClick={() => { this.deleteFavorite(favorites) }}>Delete Hero</button></td>
                     </tr>
@@ -87,10 +87,10 @@ export default class ViewFavorites extends React.Component<FavoritesProps, Favor
     render() {
         return (
             <div>
-                <AddFavorites sessionToken={this.props.sessionToken} apiErr={this.props.apiErr} />
+                <AddFavorites viewMyFavorites={this.viewMyFavorites} sessionToken={this.props.sessionToken} apiErr={this.props.apiErr} />
                 My Favorites
                 <Table>
-                    {/* {this.favoritesMapper()} */}
+                    {this.favoritesMapper()}
                 </Table>
             </div>
         )

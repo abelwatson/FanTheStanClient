@@ -60,6 +60,11 @@ input {
     border-radius: 5px;
     outline: none;
     border: 1px solid #d6d1d5;
+    margin-bottom: 20px;
+}
+
+link {
+    text-decoration: none
 }
 
 .headings {
@@ -79,7 +84,7 @@ input::placeholder {
 }
 
 .LoginButton {
-    min-width: 100%;
+    width: 100%;
     cursor: pointer;
     margin-right: 0.25em;
     margin-top: 0.5em;
@@ -95,15 +100,10 @@ input::placeholder {
 }
 
 .email,
-.password {
+.password,
+.submit {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     width: 100%;
-}
-
-.submit {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
 }

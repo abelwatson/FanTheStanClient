@@ -10,7 +10,7 @@ export class Footer extends React.Component {
                 <FooterBox>
                     <Row>
                         <Column>
-                            <Heading style={{}}>Creators</Heading>
+                            <Heading style={{}}>Creator</Heading>
                             <FooterLink href="https://www.linkedin.com/in/abel-watson/" target="_blank">
                                 {/* <LinkedInIcon />  */}
                                 Abel Watson</FooterLink>

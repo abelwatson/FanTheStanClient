@@ -21,7 +21,7 @@ class Main extends Component<MainProps, {}>{
         }
         this.clearToken = this.clearToken.bind(this)
     }
-
+    
     clearToken = () => {
         localStorage.clear();
         this.setState({ sessionToken: ('') });

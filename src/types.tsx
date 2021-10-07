@@ -11,7 +11,7 @@ export interface UserState {
     err: string,
 }
 
-export interface ReviewsState {
+export interface Reviews {
 
 }
 

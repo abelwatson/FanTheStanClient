@@ -5,6 +5,7 @@ import apiURL from '../../../helpers/environment'
 type AddFavsProps = {
     sessionToken: string | null
     apiErr: string
+    viewMyFavorites: () => void
 }
 
 type AddFavsState = {
@@ -42,6 +43,7 @@ export default class AddFavorites extends React.Component<AddFavsProps, AddFavsS
             })
             console.log(res)
             alert(`Hero has been added to your favorites.`)
+            this.props.viewMyFavorites()
         } catch (err) {
             alert(`${AddFavErr}${this.props.apiErr}`)
             console.log(err)
@@ -57,7 +59,7 @@ export default class AddFavorites extends React.Component<AddFavsProps, AddFavsS
                 this.setState({ imageURL: null })
             }}>
                 <div>
-                    <Label htmlFor='heroVillain'>Hero Name</Label>
+                    <Label htmlFor='heroVillain'>Hero/Villain Name</Label>
                     <br />
                     <FormInput name='heroVillain' value={this.state.heroVillain} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ heroVillain: e.target.value })} />
                     <AddFavButton type='submit' >Add to Favorites</AddFavButton>

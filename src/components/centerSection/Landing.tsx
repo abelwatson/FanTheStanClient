@@ -6,7 +6,7 @@ type MainProps = {
     apiErr: string
 }
 
-type MainState = {
+interface MainState {
     displayCharacters: Characters[],
     alignment: string,
     publisher: string,
@@ -40,8 +40,8 @@ export class Landing extends React.Component<MainProps, MainState> {
             })
             const results = await res.json();
             this.setState({ displayCharacters: results })
-            // this.setState({ alignment: results.biography.alignment})
-            // this.setState({ publisher: results.biography.publisher})
+            // this.setState({ alignment: results.id.biography.alignment })
+            // this.setState({ publisher: results.id.biography.publisher })
             // this.setState({ image: results.images.md})
         } catch (err) {
             alert(`${this.props.apiErr}`)
@@ -54,7 +54,7 @@ export class Landing extends React.Component<MainProps, MainState> {
     }
 
     characterMapper = (): JSX.Element[] => {
-        return this.state.displayCharacters.map((characters: Characters, ) => {
+        return this.state.displayCharacters.map((characters: Characters, index ) => {
             return (
                 <tbody>
                     <tr key={characters.id}>

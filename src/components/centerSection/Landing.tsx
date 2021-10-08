@@ -39,25 +39,14 @@ export class Landing extends React.Component<MainProps, MainState> {
                 method: "GET"
             })
             const results = await res.json();
-            console.log(results)
             this.setState({ displayCharacters: results })
-            this.setState({ alignment: results.biography.alignment})
-            this.setState({ publisher: results.biography.publisher})
-            this.setState({ image: results.images.md})
+            // this.setState({ alignment: results.biography.alignment})
+            // this.setState({ publisher: results.biography.publisher})
+            // this.setState({ image: results.images.md})
         } catch (err) {
             alert(`${this.props.apiErr}`)
         }
 
-        // .then((results) => {
-        //     return results.json();
-        // })
-        //     .then((json) => {
-        //         displayResults(json)
-        //     })
-
-        // function displayResults(json: any) {
-        //     console.log(json)
-        // }
     }
 
     componentDidMount = (): void => {
@@ -70,10 +59,10 @@ export class Landing extends React.Component<MainProps, MainState> {
                 <tbody>
                     <tr key={characters.id}>
                         <td>{characters.name}</td>
-                        <td>{characters.publisher}</td>
-                        <td>{characters.alignment}</td>
-                        <td><button>Add to Favorites</button></td>
-                        <td><button>Give Review</button></td>
+                        {/* <td>{characters.publisher}</td> */}
+                        {/* <td>{characters.alignment}</td> */}
+                        {/* <td><button>Add to Favorites</button></td> */}
+                        {/* <td><button>Give Review</button></td> */}
                     </tr>
                 </tbody>
             )

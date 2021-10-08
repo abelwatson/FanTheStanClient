@@ -39,7 +39,6 @@ export default class ViewFavorites extends React.Component<FavoritesProps, Favor
             const myJson = await res.json();
             const myFavs = await myJson.userFavorite
             this.setState({ myFavorites: myFavs })
-            console.log(this.state.myFavorites)
         } catch (err) {
             alert(`${this.props.apiErr}`)
             console.log(err)

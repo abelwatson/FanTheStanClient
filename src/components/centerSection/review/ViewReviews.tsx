@@ -2,14 +2,18 @@ import React from 'react';
 import CreateReview from './CreateReview'
 import { Table } from 'reactstrap'
 import apiURL from '../../../helpers/environment';
+import UpdateReview from './UpdateReview'
 
 interface ReviewProps {
-    sessionToken: string | null
-    apiErr: string
+    sessionToken: string | null,
+    apiErr: string,
 }
 
 interface ReviewState {
     myReviews: myReviews[],
+    CharReviews: string,
+    rToBeUpdated: myReviews,
+    rUpdateActive: boolean,
 }
 
 type myReviews = {
@@ -23,6 +27,13 @@ export default class ViewReview extends React.Component<ReviewProps, ReviewState
         super(props)
         this.state = {
             myReviews: [],
+            CharReviews: '',
+            rToBeUpdated: {
+                heroVillain: '',
+                review: '',
+                id: 0,
+            },
+            rUpdateActive: false,
         }
     }
 
@@ -36,9 +47,8 @@ export default class ViewReview extends React.Component<ReviewProps, ReviewState
                 }
             })
             const myJson = await res.json();
-            const myRev = await myJson.userReview
-            this.setState({ myReviews: myRev })
-            console.log(this.state.myReviews)
+            this.setState({ myReviews: myJson })
+            this.setState({ CharReviews: myJson.review })
         } catch (err) {
             alert(`${this.props.apiErr}`)
             console.log(err)
@@ -69,12 +79,31 @@ export default class ViewReview extends React.Component<ReviewProps, ReviewState
         }
     }
 
+    editReviews = (editReviews: any) => {
+        this.setState({ rToBeUpdated: { review: editReviews.review, heroVillain: editReviews.heroVillain, id: editReviews.id } })
+    };
+
+    rUpdateOn = (): void => {
+        this.setState({ rUpdateActive: true })
+    }
+
+    rUpdateOff = (): void => {
+        this.setState({ rUpdateActive: false })
+    }
+
+
     reviewsMapper = (): JSX.Element[] => {
         return this.state.myReviews.map((myReviews: myReviews) => {
             return (
                 <tbody>
                     <tr key={myReviews.id}>
                         <td>{myReviews.heroVillain}</td>
+                        <td>{myReviews.review}</td>
+                        <td><button onClick={e => {
+                            e.preventDefault()
+                            this.editReviews(myReviews)
+                            this.rUpdateOn()
+                        }}>Update Review</button></td>
                         <td><button onClick={() => { this.deleteReview(myReviews) }}>Delete Review</button></td>
                     </tr>
                 </tbody>
@@ -83,13 +112,16 @@ export default class ViewReview extends React.Component<ReviewProps, ReviewState
     }
 
     render() {
-        return(
+        return (
             <div>
                 <CreateReview viewMyReviews={this.viewMyReviews} sessionToken={this.props.sessionToken} apiErr={this.props.apiErr} />
-                My Reviews
                 <Table>
-                    {/* {this.reviewsMapper} */}
-                    {this.viewMyReviews}
+                    <thead>
+                        <th>Character</th>
+                        <th>Review</th>
+                    </thead>
+                    {this.reviewsMapper()}
+                    {this.state.rUpdateActive ? <UpdateReview apiErr={this.props.apiErr} rToBeUpdated={this.state.rToBeUpdated} rUpdateOff={this.rUpdateOff} sessionToken={this.props.sessionToken} viewMyReviews={this.viewMyReviews} /> : <></>}
                 </Table>
             </div>
         )

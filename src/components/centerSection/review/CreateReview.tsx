@@ -1,6 +1,5 @@
 import React from 'react';
 import { Label, FormInput, AddFavButton } from '../../styles/styles'
-// import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import apiURL from '../../../helpers/environment'
 
 type AddRevProps = {
@@ -13,8 +12,8 @@ type AddRevState = {
     heroVillain: string,
     imageURL: null,
     review: string
-    like: number
-    dislike: number
+    like: number | null
+    dislike: number | null
 }
 
 export default class AddReview extends React.Component<AddRevProps, AddRevState> {
@@ -24,8 +23,8 @@ export default class AddReview extends React.Component<AddRevProps, AddRevState>
             heroVillain: '',
             imageURL: null,
             review: '',
-            like: 0,
-            dislike: 0
+            like: null,
+            dislike: null
         }
     }
 
@@ -36,9 +35,9 @@ export default class AddReview extends React.Component<AddRevProps, AddRevState>
             review: {
                 heroVillain: this.state.heroVillain,
                 review: this.state.review,
-                imageURL: null,
-                like: null,
-                dislike: null,
+                imageURL: '',
+                like: 0,
+                dislike: 0,
             }
         }
 
@@ -52,7 +51,6 @@ export default class AddReview extends React.Component<AddRevProps, AddRevState>
                 })
             })
             console.log(res)
-            console.log(`hello`)
             alert(`Review has been added to hero.`)
             this.props.viewMyReviews()
         } catch (err) {
@@ -77,11 +75,11 @@ export default class AddReview extends React.Component<AddRevProps, AddRevState>
                     <br />
                     <FormInput name='heroVillain' value={this.state.heroVillain} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ heroVillain: e.target.value })} />
                     <br />
-                    <br />
-                    <Label htmlFor='review'>Review</Label>
+                    <Label htmlFor='heroVillain'>Review</Label>
                     <br />
                     <FormInput name='review' value={this.state.review} onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ review: e.target.value })} />
-                    <AddFavButton type='submit' >Give Review</AddFavButton>
+                    <br />
+                    <AddFavButton type='submit' >Add Review</AddFavButton>
                 </div>
             </form>
         )
